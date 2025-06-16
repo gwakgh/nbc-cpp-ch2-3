@@ -40,6 +40,7 @@ void AMyActor::move()
 		}
 		UE_LOG(LogTemp, Warning, TEXT("Distance: %f"), dist);
 		UE_LOG(LogTemp, Warning, TEXT("Total Distance: %d, Event Count: %d"), totDist, evCnt);
+		start = FVector2D(CurrentLocation.X, CurrentLocation.Y);
 	}
 	count++;
 }
