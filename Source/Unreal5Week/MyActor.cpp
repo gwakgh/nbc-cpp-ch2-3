@@ -21,7 +21,7 @@ void AMyActor::BeginPlay()
 	Super::BeginPlay();
 	CurrentLocation = GetActorLocation();
 	start = FVector2D(CurrentLocation.X,CurrentLocation.Y);
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &AMyActor::move, 0.5f, true);
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &AMyActor::move, 0.3f, true);
 }
 
 void AMyActor::move()
@@ -29,20 +29,17 @@ void AMyActor::move()
 	CurrentLocation = FVector(CurrentLocation.X + step(), CurrentLocation.Y + step(), 0);
 	SetActorLocation(CurrentLocation);
 	UE_LOG(LogTemp, Warning, TEXT("X: %f, Y: %f"), CurrentLocation.X, CurrentLocation.Y);
-	if (count != 0 && count % 100 <= 0)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("[%d] Total Distance: %d, Event Count: %d"), count, totDist, evCnt);
-	}
-	else if (count != 0 && count % 10 <= 0)
+	if (count != 0 && count % 10 <= 0)
 	{
 		float dist = distance(start, FVector2D(CurrentLocation.X, CurrentLocation.Y));
 		totDist += dist;
-		UE_LOG(LogTemp, Warning, TEXT("Distance: %f"), dist);
 		if (createEvent())
 		{
 			evCnt++;
 			UE_LOG(LogTemp, Warning, TEXT("Event!"));
 		}
+		UE_LOG(LogTemp, Warning, TEXT("Distance: %f"), dist);
+		UE_LOG(LogTemp, Warning, TEXT("Total Distance: %d, Event Count: %d"), totDist, evCnt);
 	}
 	count++;
 }
